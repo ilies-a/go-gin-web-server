@@ -14,12 +14,16 @@ func main() {
 	// ConfigRuntime()
 	var wg sync.WaitGroup
 	wg.Add(1)
+	startServers()
+	wg.Wait()
+}
+
+func startServers() {
 	log.Println("main starts")
 	go StartGin("3000", "srv1")
-	time.Sleep(5 * time.Second)
+	time.Sleep(1 * time.Second)
 	go StartGin("5000", "srv2")
 	log.Println("server are running")
-	wg.Wait()
 }
 
 // ConfigRuntime sets the number of operating system threads.
