@@ -10,8 +10,8 @@ import (
 )
 
 func main() {
-	ConfigRuntime()
-	StartWorkers()
+	// ConfigRuntime()
+	// StartWorkers()
 	StartGin()
 }
 
@@ -44,7 +44,7 @@ func StartGin() {
 	if port == "" {
 		port = "8080"
 	}
-	if err := router.Run("localhost:" + port); err != nil {
+	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
 }
