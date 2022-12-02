@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log"
+	"os"
 	"runtime"
 	"sync"
 	"time"
@@ -20,9 +21,9 @@ func main() {
 
 func startServers() {
 	log.Println("main starts")
-	go StartGin("5000", "srv2")
+	go StartGin("3000", "srv p 3000")
 	time.Sleep(1 * time.Second)
-	go StartGin("3000", "srv1")
+	go StartGin("5000", "srv p 5000")
 	log.Println("server are running")
 }
 
@@ -47,6 +48,7 @@ func StartGin(port string, message string) {
 	// if port == "" {
 	// 	port = "8080"
 	// }
+	log.Println("ENV PORT", os.Getenv("PORT"))
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
