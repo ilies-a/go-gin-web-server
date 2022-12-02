@@ -11,7 +11,6 @@ import (
 
 func main() {
 	// ConfigRuntime()
-	// StartWorkers()
 	var wg sync.WaitGroup
 	wg.Add(1)
 	log.Println("main starts")
@@ -27,14 +26,9 @@ func ConfigRuntime() {
 	fmt.Printf("Running with %d CPUs\n", nuCPU)
 }
 
-// StartWorkers start starsWorker by goroutine.
-func StartWorkers() {
-	go StatsWorker()
-}
-
 // StartGin starts gin web server with setting router.
 func StartGin(port string, message string) {
-	gin.SetMode(gin.ReleaseMode)
+	//gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
 	//router.Use(RateLimit, gin.Recovery())
