@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"log"
-	"os"
 	"runtime"
+	"sync"
 
 	"github.com/gin-gonic/gin"
 )
@@ -12,7 +12,11 @@ import (
 func main() {
 	// ConfigRuntime()
 	// StartWorkers()
-	StartGin()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	go StartGin("3000", "srv1")
+	go StartGin("5000", "srv2")
+	wg.Wait()
 }
 
 // ConfigRuntime sets the number of operating system threads.
@@ -28,22 +32,19 @@ func StartWorkers() {
 }
 
 // StartGin starts gin web server with setting router.
-func StartGin() {
+func StartGin(port string, message string) {
 	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
 	router.Use(RateLimit, gin.Recovery())
-	router.LoadHTMLGlob("resources/*.templ.html")
-	router.Static("/static", "resources/static")
-	router.GET("/", Index)
-	router.GET("/room/:roomid", RoomGET)
-	router.POST("/room-post/:roomid", RoomPOST)
-	router.GET("/stream/:roomid", StreamRoom)
+	router.GET("/", func(c *gin.Context) {
+		c.JSON(200, message)
+	})
 
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
+	// port := os.Getenv("PORT")
+	// if port == "" {
+	// 	port = "8080"
+	// }
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
 	}
