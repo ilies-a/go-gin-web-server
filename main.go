@@ -24,7 +24,7 @@ func ConfigRuntime() {
 
 // StartWorkers start starsWorker by goroutine.
 func StartWorkers() {
-	go statsWorker()
+	go StatsWorker()
 }
 
 // StartGin starts gin web server with setting router.
@@ -32,19 +32,19 @@ func StartGin() {
 	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
-	router.Use(rateLimit, gin.Recovery())
+	router.Use(RateLimit, gin.Recovery())
 	router.LoadHTMLGlob("resources/*.templ.html")
 	router.Static("/static", "resources/static")
-	router.GET("/", index)
-	router.GET("/room/:roomid", roomGET)
-	router.POST("/room-post/:roomid", roomPOST)
-	router.GET("/stream/:roomid", streamRoom)
+	router.GET("/", Index)
+	router.GET("/room/:roomid", RoomGET)
+	router.POST("/room-post/:roomid", RoomPOST)
+	router.GET("/stream/:roomid", StreamRoom)
 
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8080"
 	}
 	if err := router.Run(":" + port); err != nil {
-        log.Panicf("error: %s", err)
+		log.Panicf("error: %s", err)
 	}
 }

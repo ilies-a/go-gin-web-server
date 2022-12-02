@@ -11,7 +11,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func rateLimit(c *gin.Context) {
+func RateLimit(c *gin.Context) {
 	ip := c.ClientIP()
 	value := int(ips.Add(ip, 1))
 	if value%50 == 0 {
@@ -26,11 +26,11 @@ func rateLimit(c *gin.Context) {
 	}
 }
 
-func index(c *gin.Context) {
+func Index(c *gin.Context) {
 	c.Redirect(http.StatusMovedPermanently, "/room/hn")
 }
 
-func roomGET(c *gin.Context) {
+func RoomGET(c *gin.Context) {
 	roomid := c.Param("roomid")
 	nick := c.Query("nick")
 	if len(nick) < 2 {
@@ -47,7 +47,7 @@ func roomGET(c *gin.Context) {
 
 }
 
-func roomPOST(c *gin.Context) {
+func RoomPOST(c *gin.Context) {
 	roomid := c.Param("roomid")
 	nick := c.Query("nick")
 	message := c.PostForm("message")
@@ -72,13 +72,13 @@ func roomPOST(c *gin.Context) {
 	c.JSON(http.StatusOK, post)
 }
 
-func streamRoom(c *gin.Context) {
+func StreamRoom(c *gin.Context) {
 	roomid := c.Param("roomid")
-	listener := openListener(roomid)
+	listener := OpenListener(roomid)
 	ticker := time.NewTicker(1 * time.Second)
 	users.Add("connected", 1)
 	defer func() {
-		closeListener(roomid, listener)
+		CloseListener(roomid, listener)
 		ticker.Stop()
 		users.Add("disconnected", 1)
 	}()

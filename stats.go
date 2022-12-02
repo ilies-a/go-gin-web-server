@@ -16,7 +16,7 @@ var (
 	savedStats map[string]uint64
 )
 
-func statsWorker() {
+func StatsWorker() {
 	c := time.Tick(1 * time.Second)
 	var lastMallocs uint64
 	var lastFrees uint64
@@ -33,7 +33,7 @@ func statsWorker() {
 			"Frees":      stats.Frees - lastFrees,
 			"Inbound":    uint64(messages.Get("inbound")),
 			"Outbound":   uint64(messages.Get("outbound")),
-			"Connected":  connectedUsers(),
+			"Connected":  ConnectedUsers(),
 		}
 		lastMallocs = stats.Mallocs
 		lastFrees = stats.Frees
@@ -42,7 +42,7 @@ func statsWorker() {
 	}
 }
 
-func connectedUsers() uint64 {
+func ConnectedUsers() uint64 {
 	connected := users.Get("connected") - users.Get("disconnected")
 	if connected < 0 {
 		return 0
