@@ -5,6 +5,7 @@ import (
 	"log"
 	"runtime"
 	"sync"
+	"time"
 
 	"github.com/gin-gonic/gin"
 )
@@ -15,6 +16,7 @@ func main() {
 	wg.Add(1)
 	log.Println("main starts")
 	go StartGin("3000", "srv1")
+	time.Sleep(5 * time.Second)
 	go StartGin("5000", "srv2")
 	log.Println("server are running")
 	wg.Wait()
