@@ -14,8 +14,10 @@ func main() {
 	// StartWorkers()
 	var wg sync.WaitGroup
 	wg.Add(1)
+	log.Println("main starts")
 	go StartGin("3000", "srv1")
 	go StartGin("5000", "srv2")
+	log.Println("server are running")
 	wg.Wait()
 }
 
