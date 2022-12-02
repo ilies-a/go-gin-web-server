@@ -37,7 +37,7 @@ func StartGin(port string, message string) {
 	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
-	router.Use(RateLimit, gin.Recovery())
+	//router.Use(RateLimit, gin.Recovery())
 	router.GET("/", func(c *gin.Context) {
 		c.JSON(200, message)
 	})
