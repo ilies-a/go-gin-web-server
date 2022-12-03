@@ -19,15 +19,15 @@ func main() {
 	wg.Add(1)
 	startServers()
 	time.Sleep(2 * time.Second)
-	sendRequest("8080")
+	sendRequest("5000")
 	wg.Wait()
 }
 
 func startServers() {
 	log.Println("main starts")
-	go StartServer2("8080", "srv p 8080")
+	go StartServer1("8080", "srv p 8080")
 	time.Sleep(2 * time.Second)
-	go StartServer1("5000", "srv p 5000")
+	go StartServer2("5000", "srv p 5000")
 	log.Println("server are running")
 }
 
