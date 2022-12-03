@@ -35,7 +35,7 @@ func ConfigRuntime() {
 
 // StartGin starts gin web server with setting router.
 func StartGin(port string, message string) {
-	//gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 
 	router := gin.New()
 	//router.Use(RateLimit, gin.Recovery())
