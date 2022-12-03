@@ -20,7 +20,7 @@ func main() {
 
 func startServers() {
 	log.Println("main starts")
-	go StartGin("80", "srv p 80")
+	go StartGin("3000", "srv p 80")
 	time.Sleep(1 * time.Second)
 	go StartGin("8080", "srv p 8080")
 	log.Println("server are running")
