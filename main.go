@@ -4,24 +4,24 @@ import (
 	"fmt"
 	"log"
 	"runtime"
+	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	// ConfigRuntime()
-	// var wg sync.WaitGroup
-	// wg.Add(1)
-	// startServers()
-	// wg.Wait()
-	StartGin("5000", "srv")
+	ConfigRuntime()
+	var wg sync.WaitGroup
+	wg.Add(1)
+	startServers()
+	wg.Wait()
 }
 
 func startServers() {
 	log.Println("main starts")
-	go StartGin("3000", "srv p 80")
-	time.Sleep(1 * time.Second)
+	go StartGin("3000", "srv p 3000")
+	time.Sleep(2 * time.Second)
 	go StartGin("8080", "srv p 8080")
 	log.Println("server are running")
 }
