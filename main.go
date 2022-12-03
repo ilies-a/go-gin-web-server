@@ -49,8 +49,8 @@ func StartGin(port string, message string) {
 		c.JSON(200, message)
 	})
 	router.POST("/test", func(c *gin.Context) {
-		message = c.Request.PostFormValue("message")
-		c.JSON(200, message)
+		postMsg := c.Request.PostFormValue("message")
+		c.JSON(200, postMsg)
 	})
 	// port := os.Getenv("PORT")
 	// if port == "" {
