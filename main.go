@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"log"
 	"runtime"
-	"sync"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -12,10 +11,11 @@ import (
 
 func main() {
 	// ConfigRuntime()
-	var wg sync.WaitGroup
-	wg.Add(1)
-	startServers()
-	wg.Wait()
+	// var wg sync.WaitGroup
+	// wg.Add(1)
+	// startServers()
+	// wg.Wait()
+	StartGin("8080", "srv")
 }
 
 func startServers() {
