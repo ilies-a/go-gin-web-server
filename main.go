@@ -19,15 +19,15 @@ func main() {
 	wg.Add(1)
 	startServers()
 	time.Sleep(2 * time.Second)
-	sendRequest("5000")
+	sendRequest("8080")
 	wg.Wait()
 }
 
 func startServers() {
 	log.Println("main starts")
-	go StartServer1("8080", "srv p 8080")
+	go StartServer2("8080", "srv p 8080")
 	time.Sleep(2 * time.Second)
-	go StartServer2("5000", "srv p 5000")
+	go StartServer1("5000", "srv p 5000")
 	log.Println("server are running")
 }
 
@@ -79,7 +79,7 @@ func StartServer2(port string, message string) {
 		c.JSON(200, message)
 	})
 	router.POST("/test", func(c *gin.Context) {
-		c.JSON(200, "TEST OK !!!!")
+		c.JSON(200, "TEST OK")
 	})
 	if err := router.Run(":" + port); err != nil {
 		log.Panicf("error: %s", err)
