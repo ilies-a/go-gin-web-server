@@ -15,7 +15,7 @@ func main() {
 	// wg.Add(1)
 	// startServers()
 	// wg.Wait()
-	StartGin("3000", "srv")
+	StartGin("8080", "srv")
 }
 
 func startServers() {
